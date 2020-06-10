@@ -7,11 +7,12 @@
   "license": "ISC",
   "main": "index.js",
   "directories": {
-    "lib": "lib",
+    "lib": "",
     "test": "__tests__"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "parseFrontMatter.js"
   ],
   "repository": {
     "type": "git",
