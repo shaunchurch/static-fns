@@ -5,9 +5,9 @@
   "author": "Shaun Church <shaun@shaunchurch.com>",
   "homepage": "https://github.com/shaunchurch/static-fns#readme",
   "license": "ISC",
-  "main": "lib/blog.js",
+  "main": "index.js",
   "directories": {
-    "lib": "lib",
+    "lib": ".",
     "test": "__tests__"
   },
   "files": [
