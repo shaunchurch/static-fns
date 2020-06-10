@@ -26,7 +26,9 @@
   },
   "dependencies": {
     "@static-fns/loader": "0.0.1-alpha.11",
+    "@types/isomorphic-fetch": "0.0.35",
     "date-fns": "^2.14.0",
+    "isomorphic-unfetch": "^3.0.0",
     "rss": "^1.2.2"
   },
   "gitHead": "199a23f801100659c2b75128678f4892b486ad2a",
