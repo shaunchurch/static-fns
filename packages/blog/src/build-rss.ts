@@ -5,16 +5,20 @@ import { getPosts } from "./blog-engine";
 
 type RSSOptions = {
   outputPath: string;
-  rootUrl?: string;
+  rootUrl: string;
   siteName?: string;
+  rssFilename?: string;
+  description?: string;
 };
 
 export function generateRSS(options: RSSOptions) {
   const previewItems = getPosts(true);
   const feed = new RSS({
-    title: options.siteName,
+    title: options.siteName || "RSS Feed",
     site_url: options.rootUrl,
-    feed_url: options.rootUrl + "/rss.xml",
+    feed_url: `${options.rootUrl}/${options.rssFilename || "rss.xml"}`,
+    description: options.description || "",
+    generate: "fns",
   });
 
   previewItems.map((post: any) => {
@@ -32,5 +36,3 @@ export function generateRSS(options: RSSOptions) {
   const rss = feed.xml({ indent: true });
   fs.writeFileSync(path.join(options.outputPath, "feed.xml"), rss);
 }
-
-// generateRSS({ outputPath: "./public" });
