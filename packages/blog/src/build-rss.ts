@@ -2,21 +2,26 @@ import fs from "fs";
 import path from "path";
 import RSS from "rss";
 import { getPosts } from "./blog-engine";
-import siteConfig from "../../../site.config";
 
 const previewItems = getPosts(true);
 
-export function generateRSS(outputPath: string) {
+type RSSOptions = {
+  outputPath: string;
+  rootUrl?: string;
+  siteName?: string;
+};
+
+export function generateRSS(options: RSSOptions) {
   const feed = new RSS({
-    title: siteConfig.siteName,
-    site_url: siteConfig.rootUrl,
-    feed_url: siteConfig.rootUrl + "/rss.xml",
+    title: options.siteName,
+    site_url: options.rootUrl,
+    feed_url: options.rootUrl + "/rss.xml",
   });
 
   previewItems.map((post: any) => {
     feed.item({
       title: post.title || "",
-      url: siteConfig.rootUrl + post.path,
+      url: options.rootUrl + post.path,
       date: post.date,
       description: post.excerpt || post.body || "",
       // custom_elements: [].concat(
@@ -26,7 +31,7 @@ export function generateRSS(outputPath: string) {
   });
 
   const rss = feed.xml({ indent: true });
-  fs.writeFileSync(path.join(outputPath, "feed.xml"), rss);
+  fs.writeFileSync(path.join(options.outputPath, "feed.xml"), rss);
 }
 
-generateRSS("./public");
+generateRSS({ outputPath: "./public" });

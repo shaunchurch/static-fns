@@ -1,10 +1,10 @@
 import fs from "fs";
 import path from "path";
-import parseFrontMatter from "../static-fns-loader/parseFrontMatter";
-import siteConfig from "../../../site.config";
-import { slugify } from "../slugify";
+import parseFrontMatter from "../../loader/src/parseFrontMatter";
+// import siteConfig from "../../../site.config";
+import { slugify } from "./slugify";
 
-const POSTS_DIRECTORY_NAME = siteConfig.postsDirectory;
+const POSTS_DIRECTORY_NAME = "posts"; // siteConfig.postsDirectory;
 const POSTS_DIRECTORY = path.join(
   process.cwd(),
   `/src/pages/${POSTS_DIRECTORY_NAME}`
