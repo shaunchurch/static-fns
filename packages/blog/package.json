@@ -25,6 +25,7 @@
     "url": "https://github.com/shaunchurch/static-fns/issues"
   },
   "dependencies": {
+    "@static-fns/loader": "0.0.1-alpha.11",
     "date-fns": "^2.14.0",
     "rss": "^1.2.2"
   },
