@@ -74,7 +74,11 @@ function getPostData(posts: string[]): PostData[] {
   });
 }
 
-export function getPosts(useCache?: boolean) {
+type GetOptions = {
+  useCache?: boolean;
+  limit?: number;
+};
+export function getPosts({ useCache = false, limit = undefined }: GetOptions) {
   const TAG = "[ posts ]";
   if (useCache && cache.posts.length > 0) {
     console.log(`${TAG} Using cached posts...`);
@@ -84,19 +88,20 @@ export function getPosts(useCache?: boolean) {
   console.log(`${TAG} scanning for posts`, `pages/${POSTS_DIRECTORY_NAME}/**`);
   const postPaths = getPostPaths();
   postPaths.forEach((path) => console.log(`${TAG} -`, path));
-  const posts = getPostData(postPaths);
-  posts
+  const posts = getPostData(postPaths)
     .sort(
       (a: PostData, b: PostData) =>
         new Date(b.date || "").getTime() - new Date(a.date).getTime()
     )
-    .filter((post) => !post.draft);
+    .filter((post) => !post.draft)
+    .slice(0, limit);
+
   cache.posts = posts;
   return posts;
 }
 
 export function getTags() {
-  return getPosts(true).reduce((acc, current) => {
+  return getPosts({ useCache: true }).reduce((acc, current) => {
     if (!current.tags) {
       return acc;
     }
