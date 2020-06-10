@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import parseFrontMatter from "../../loader/src/parseFrontMatter";
+import parseFrontMatter from "../../loader/parseFrontMatter";
 // import siteConfig from "../../../site.config";
 import { slugify } from "./slugify";
 
