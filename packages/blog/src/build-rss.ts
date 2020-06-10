@@ -3,8 +3,6 @@ import path from "path";
 import RSS from "rss";
 import { getPosts } from "./blog-engine";
 
-const previewItems = getPosts(true);
-
 type RSSOptions = {
   outputPath: string;
   rootUrl?: string;
@@ -12,6 +10,7 @@ type RSSOptions = {
 };
 
 export function generateRSS(options: RSSOptions) {
+  const previewItems = getPosts(true);
   const feed = new RSS({
     title: options.siteName,
     site_url: options.rootUrl,
