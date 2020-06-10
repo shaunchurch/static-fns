@@ -34,4 +34,4 @@ export function generateRSS(options: RSSOptions) {
   fs.writeFileSync(path.join(options.outputPath, "feed.xml"), rss);
 }
 
-generateRSS({ outputPath: "./public" });
+// generateRSS({ outputPath: "./public" });
