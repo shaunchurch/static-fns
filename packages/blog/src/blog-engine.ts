@@ -26,9 +26,13 @@ function isFile(path: string): boolean {
 const FILE_TYPE_REGEX = /\.(tsx|ts|js|jsx|DS_Store|jpeg|jpg|png)$/;
 
 // recursively load posts in directory
-function getPostPaths(dir: string = "/"): string[] {
+type PostPathOptions = {
+  directory: string;
+};
+function getPostPaths(dir: string = "/", options?: PostPathOptions): string[] {
+  const { directory = POSTS_DIRECTORY } = options;
   const files = fs
-    .readdirSync(`${POSTS_DIRECTORY}${dir}`)
+    .readdirSync(`${directory}${dir}`)
     .map((file) => `${dir}${dir !== "/" ? "/" : ""}${file}`)
     .filter((file) => !file.match(FILE_TYPE_REGEX));
 
@@ -36,7 +40,7 @@ function getPostPaths(dir: string = "/"): string[] {
     ...files.filter((file) => isFile(file)),
     ...files
       .filter((file) => !isFile(file))
-      .map((file) => getPostPaths(file))
+      .map((file) => getPostPaths(file, options))
       // @ts-ignore
       .flat(),
   ];
@@ -53,14 +57,19 @@ export type PostData = {
   draft?: boolean;
 };
 
+type PostDataOptions = {
+  directory?: string;
+};
+
 // load file contents and front matter
-function getPostData(posts: string[]): PostData[] {
+function getPostData(posts: string[], options?: PostDataOptions): PostData[] {
+  const { directory } = options || {
+    directory: POSTS_DIRECTORY,
+  };
+
   return posts.map((postPath) => {
     const filename = path.parse(postPath);
-    const file: string = fs.readFileSync(
-      `${POSTS_DIRECTORY}/${postPath}`,
-      "utf-8"
-    );
+    const file: string = fs.readFileSync(`${directory}/${postPath}`, "utf-8");
     const { content, data } = parseFrontMatter(file);
 
     return {
@@ -75,20 +84,35 @@ function getPostData(posts: string[]): PostData[] {
 }
 
 type GetOptions = {
-  useCache?: boolean;
+  cache?: boolean;
   limit?: number;
+  directory?: string;
+  verbose?: boolean;
 };
-export function getPosts({ useCache = false, limit = undefined }: GetOptions) {
+
+export function getPosts(options?: GetOptions) {
+  const {
+    directory = POSTS_DIRECTORY,
+    cache: useCache = false,
+    limit = undefined,
+    verbose = false,
+  } = options;
   const TAG = "[ posts ]";
+
   if (useCache && cache.posts.length > 0) {
-    console.log(`${TAG} Using cached posts...`);
+    verbose ? console.log(`${TAG} Using cached posts...`) : null;
     return cache.posts;
   }
   cache.posts = [];
-  console.log(`${TAG} scanning for posts`, `pages/${POSTS_DIRECTORY_NAME}/**`);
-  const postPaths = getPostPaths();
-  postPaths.forEach((path) => console.log(`${TAG} -`, path));
-  const posts = getPostData(postPaths)
+
+  verbose
+    ? console.log(`${TAG} scanning for posts`, `pages/${directory}/**`)
+    : null;
+
+  const postPaths = getPostPaths("/", { directory });
+  verbose ? postPaths.forEach((path) => console.log(`${TAG} -`, path)) : null;
+
+  const posts = getPostData(postPaths, { directory })
     .sort(
       (a: PostData, b: PostData) =>
         new Date(b.date || "").getTime() - new Date(a.date).getTime()
@@ -101,7 +125,7 @@ export function getPosts({ useCache = false, limit = undefined }: GetOptions) {
 }
 
 export function getTags() {
-  return getPosts({ useCache: true }).reduce((acc, current) => {
+  return getPosts({ cache: true }).reduce((acc, current) => {
     if (!current.tags) {
       return acc;
     }
@@ -122,7 +146,7 @@ export function getTags() {
 }
 
 export function getAuthors() {
-  return getPosts(true).reduce((acc, current) => {
+  return getPosts({ cache: true }).reduce((acc, current) => {
     if (!current.author) {
       return acc;
     }

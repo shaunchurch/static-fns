@@ -14,7 +14,7 @@ type RSSOptions = {
 const DEFAULT_FILENAME = "rss.xml";
 
 export function generateRSS(options: RSSOptions) {
-  const previewItems = getPosts(true);
+  const previewItems = getPosts({ cache: true });
   const feed = new RSS({
     title: options.siteName || "RSS Feed",
     site_url: options.rootUrl,
