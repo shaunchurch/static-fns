@@ -1,6 +1,6 @@
 {
   "name": "@static-fns/blog",
-  "version": "0.0.1-alpha.3",
+  "version": "0.0.1-alpha.4",
   "description": "> TODO: description",
   "author": "Shaun Church <shaun@shaunchurch.com>",
   "homepage": "https://github.com/shaunchurch/static-fns#readme",
@@ -28,5 +28,8 @@
     "date-fns": "^2.14.0",
     "rss": "^1.2.2"
   },
-  "gitHead": "f2c38719c291a786c178d4be7d0f0d467adf6586"
+  "gitHead": "199a23f801100659c2b75128678f4892b486ad2a",
+  "publishConfig": {
+    "access": "public"
+  }
 }
