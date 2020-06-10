@@ -11,12 +11,14 @@ type RSSOptions = {
   description?: string;
 };
 
+const DEFAULT_FILENAME = "rss.xml";
+
 export function generateRSS(options: RSSOptions) {
   const previewItems = getPosts(true);
   const feed = new RSS({
     title: options.siteName || "RSS Feed",
     site_url: options.rootUrl,
-    feed_url: `${options.rootUrl}/${options.rssFilename || "rss.xml"}`,
+    feed_url: `${options.rootUrl}/${options.rssFilename || DEFAULT_FILENAME}`,
     description: options.description || "",
     generate: "fns",
   });
@@ -34,5 +36,8 @@ export function generateRSS(options: RSSOptions) {
   });
 
   const rss = feed.xml({ indent: true });
-  fs.writeFileSync(path.join(options.outputPath, "feed.xml"), rss);
+  fs.writeFileSync(
+    path.join(options.outputPath, options.rssFilename || DEFAULT_FILENAME),
+    rss
+  );
 }
