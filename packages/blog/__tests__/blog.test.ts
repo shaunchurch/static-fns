@@ -1,5 +1,5 @@
 import path from "path";
-import { getPosts } from "../src/blog-engine";
+import { getPosts, findValidDirectory } from "../src/blog-engine";
 
 const getPostsDefaultOptions = {
   cache: false,
@@ -21,5 +21,24 @@ describe("blog", () => {
     const posts = getPosts({ ...getPostsDefaultOptions, limit: 2 });
     expect(posts).toHaveLength(2);
     expect(posts[0].title).toBe("First post");
+  });
+
+  // it("should read a set of posts from the filesystem without a specified directory", () => {
+  //   const posts = getPosts({ cache: false, limit: 2 });
+  //   expect(posts).toHaveLength(2);
+  //   expect(posts[0].title).toBe("First post");
+  // });
+});
+
+describe("filesystem", () => {
+  it("should find a valid directory in an array of paths", () => {
+    const dirs = [
+      "/path/to/nowhere",
+      "/beaten/path",
+      getPostsDefaultOptions.directory,
+    ];
+
+    const directory = findValidDirectory(dirs);
+    expect(directory).toBe(getPostsDefaultOptions.directory);
   });
 });

@@ -1,14 +1,16 @@
 import fs from "fs";
 import path from "path";
 import parseFrontMatter from "@static-fns/loader/parseFrontMatter";
-// import siteConfig from "../../../site.config";
 import { slugify } from "./slugify";
 
-const POSTS_DIRECTORY_NAME = "posts"; // siteConfig.postsDirectory;
-const POSTS_DIRECTORY = path.join(
-  process.cwd(),
-  `/src/pages/${POSTS_DIRECTORY_NAME}`
-);
+const POSTS_DIRECTORY = findValidDirectory([
+  createDirectoryPath("/src/pages/posts"),
+  createDirectoryPath("/pages/posts"),
+  createDirectoryPath("/src/pages/words"),
+  createDirectoryPath("/pages/words"),
+  createDirectoryPath("/src/pages/blog"),
+  createDirectoryPath("/pages/blog"),
+]);
 
 type Cache = {
   posts: PostData[];
@@ -20,6 +22,18 @@ let cache: Cache = { posts: [], authors: [], tags: [] };
 
 function isFile(path: string): boolean {
   return path.includes(".");
+}
+
+export function findValidDirectory(directoryPaths: string[]) {
+  return directoryPaths.find(isDirectoryValid);
+}
+
+function isDirectoryValid(directoryPath: string): boolean {
+  return fs.existsSync(directoryPath);
+}
+
+function createDirectoryPath(directoryPath: string) {
+  return path.join(process.cwd(), directoryPath);
 }
 
 // File types to load
@@ -71,13 +85,15 @@ function getPostData(posts: string[], options?: PostDataOptions): PostData[] {
     const filename = path.parse(postPath);
     const file: string = fs.readFileSync(`${directory}/${postPath}`, "utf-8");
     const { content, data } = parseFrontMatter(file);
-
+    console.log("postPath", postPath, filename, __dirname);
+    const parseDir = path.parse(directory);
+    console.log("parseDir", parseDir, directory);
     return {
       date: "",
       ...data,
       body: content,
       path:
-        `/${POSTS_DIRECTORY_NAME}` +
+        `/${"posts"}` +
         path.join(filename.dir, filename.name).replace("/index", ""),
     };
   });
@@ -105,9 +121,7 @@ export function getPosts(options?: GetOptions) {
   }
   cache.posts = [];
 
-  verbose
-    ? console.log(`${TAG} scanning for posts`, `pages/${directory}/**`)
-    : null;
+  verbose ? console.log(`${TAG} scanning for posts`, `${directory}/**`) : null;
 
   const postPaths = getPostPaths("/", { directory });
   verbose ? postPaths.forEach((path) => console.log(`${TAG} -`, path)) : null;
