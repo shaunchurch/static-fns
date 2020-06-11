@@ -85,16 +85,14 @@ function getPostData(posts: string[], options?: PostDataOptions): PostData[] {
     const filename = path.parse(postPath);
     const file: string = fs.readFileSync(`${directory}/${postPath}`, "utf-8");
     const { content, data } = parseFrontMatter(file);
-    console.log("postPath", postPath, filename, __dirname);
     const parseDir = path.parse(directory);
-    console.log("parseDir", parseDir, directory);
     return {
       date: "",
       ...data,
       body: content,
-      path:
-        `/${"posts"}` +
-        path.join(filename.dir, filename.name).replace("/index", ""),
+      path: `/${parseDir.name}${path
+        .join(filename.dir, filename.name)
+        .replace("/index", "")}`,
     };
   });
 }

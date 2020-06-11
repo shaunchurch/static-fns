@@ -39,6 +39,8 @@ describe("filesystem", () => {
     ];
 
     const directory = findValidDirectory(dirs);
+    const posts = getPosts(getPostsDefaultOptions);
     expect(directory).toBe(getPostsDefaultOptions.directory);
+    expect(posts[0].path).toEqual("/test-posts/post");
   });
 });
