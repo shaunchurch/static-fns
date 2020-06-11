@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import RSS from "rss";
-import { getPosts } from "./blog-engine";
+import { getPosts } from "./blog-fns";
 
 type RSSOptions = {
   outputPath: string;

@@ -1,5 +1,5 @@
 import path from "path";
-import { getPosts, findValidDirectory } from "../src/blog-engine";
+import { getPosts, findValidDirectory } from "../src/blog-fns";
 
 const getPostsDefaultOptions = {
   cache: false,
