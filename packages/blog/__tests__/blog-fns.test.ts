@@ -23,6 +23,12 @@ describe("blog", () => {
     expect(posts[0].title).toBe("First post");
   });
 
+  it("should read a set of posts from the filesystem in a default location", () => {
+    const posts = getPosts({ limit: 2 });
+    expect(posts).toHaveLength(2);
+    expect(posts[0].title).toBe("First post");
+  });
+
   // it("should read a set of posts from the filesystem without a specified directory", () => {
   //   const posts = getPosts({ cache: false, limit: 2 });
   //   expect(posts).toHaveLength(2);

@@ -3,15 +3,6 @@ import path from "path";
 import parseFrontMatter from "@static-fns/loader/parseFrontMatter";
 import { slugify } from "./slugify";
 
-const POSTS_DIRECTORY = findValidDirectory([
-  createDirectoryPath("/src/pages/posts"),
-  createDirectoryPath("/pages/posts"),
-  createDirectoryPath("/src/pages/words"),
-  createDirectoryPath("/pages/words"),
-  createDirectoryPath("/src/pages/blog"),
-  createDirectoryPath("/pages/blog"),
-]);
-
 type Cache = {
   posts: PostData[];
   authors: any[];
@@ -38,13 +29,32 @@ function createDirectoryPath(directoryPath: string) {
 
 // File types to load
 const FILE_TYPE_REGEX = /\.(tsx|ts|js|jsx|DS_Store|jpeg|jpg|png)$/;
+const DEFAULT_POST_PATHS = [
+  "/src/pages/posts",
+  "/pages/posts",
+  "/src/pages/words",
+  "/pages/words",
+  "/src/pages/blog",
+  "/pages/blog",
+  "/src/pages/writing",
+  "/pages/writing",
+  "/src/pages/thoughts",
+  "/pages/thoughts",
+  "/packages/blog/__tests__/test-posts",
+];
+
+function findDefaultPostsDirectory() {
+  return findValidDirectory(
+    DEFAULT_POST_PATHS.map((path) => createDirectoryPath(path))
+  );
+}
 
 // recursively load posts in directory
 type PostPathOptions = {
   directory: string;
 };
 function getPostPaths(dir: string = "/", options?: PostPathOptions): string[] {
-  const { directory = POSTS_DIRECTORY } = options;
+  const { directory = findDefaultPostsDirectory() } = options;
   const files = fs
     .readdirSync(`${directory}${dir}`)
     .map((file) => `${dir}${dir !== "/" ? "/" : ""}${file}`)
@@ -78,7 +88,7 @@ type PostDataOptions = {
 // load file contents and front matter
 function getPostData(posts: string[], options?: PostDataOptions): PostData[] {
   const { directory } = options || {
-    directory: POSTS_DIRECTORY,
+    directory: findDefaultPostsDirectory(),
   };
 
   return posts.map((postPath) => {
@@ -106,7 +116,7 @@ type GetOptions = {
 
 export function getPosts(options?: GetOptions) {
   const {
-    directory = POSTS_DIRECTORY,
+    directory = findDefaultPostsDirectory(),
     cache: useCache = false,
     limit = undefined,
     verbose = false,
