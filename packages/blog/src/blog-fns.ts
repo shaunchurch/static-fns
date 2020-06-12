@@ -171,6 +171,17 @@ export function getTags(): TagPosts {
   }, {});
 }
 
+type StaticTagPathParams = {
+  params: {
+    tagSlug: string;
+  };
+};
+export function getStaticTagPaths(): StaticTagPathParams[] {
+  return Object.keys(getTags()).map((tag) => {
+    return { params: { tagSlug: tag } };
+  });
+}
+
 type TagAuthors = {
   [key: string]: PostData[];
 };
@@ -193,4 +204,15 @@ export function getAuthors(): TagAuthors {
 
     return acc;
   }, {});
+}
+
+type StaticAuthorPathParams = {
+  params: {
+    authorSlug: string;
+  };
+};
+export function getStaticAuthorPaths(): StaticAuthorPathParams[] {
+  return Object.keys(getAuthors()).map((author) => {
+    return { params: { authorSlug: author } };
+  });
 }

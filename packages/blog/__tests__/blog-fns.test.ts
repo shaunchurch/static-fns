@@ -4,6 +4,8 @@ import {
   getTags,
   getAuthors,
   findValidDirectory,
+  getStaticTagPaths,
+  getStaticAuthorPaths,
 } from "../src/blog-fns";
 
 const getPostsDefaultOptions = {
@@ -48,12 +50,28 @@ describe("blog-fns", () => {
     expect(tags[Object.keys(tags)[2]]).toHaveLength(2);
   });
 
+  it("should return a list of Next.js StaticPath objects for tags", () => {
+    const paths = getStaticTagPaths();
+    expect(paths).toBeInstanceOf(Array);
+    expect(paths).toHaveLength(6);
+    expect(paths[0].params.tagSlug).toEqual("tag-one");
+    expect(paths[1].params.tagSlug).toEqual("tag-two");
+  });
+
   it("should read a set of posts from the filesystem and derive a tag object", () => {
     const authors = getAuthors();
     expect(Object.keys(authors)[0]).toEqual("author-one");
     expect(Object.keys(authors)[1]).toEqual("author-two");
     expect(authors[Object.keys(authors)[0]]).toHaveLength(1);
     expect(authors[Object.keys(authors)[2]]).toHaveLength(1);
+  });
+
+  it("should return a list of Next.js StaticPath objects for author", () => {
+    const paths = getStaticAuthorPaths();
+    expect(paths).toBeInstanceOf(Array);
+    expect(paths).toHaveLength(3);
+    expect(paths[0].params.authorSlug).toEqual("author-one");
+    expect(paths[1].params.authorSlug).toEqual("author-two");
   });
 });
 
