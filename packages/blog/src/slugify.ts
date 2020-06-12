@@ -16,3 +16,7 @@ export function slugify(string: string) {
     .replace(/^-+/, "") // Trim - from start of text
     .replace(/-+$/, ""); // Trim - from end of text
 }
+
+export function deSlugify(string: string) {
+  return string.replace("-", " ");
+}
