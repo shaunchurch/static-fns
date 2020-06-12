@@ -18,5 +18,5 @@ export function slugify(string: string) {
 }
 
 export function deSlugify(string: string) {
-  return string.replace("-", " ");
+  return string.replace(/-/g, " ");
 }
