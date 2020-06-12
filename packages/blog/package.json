@@ -33,5 +33,8 @@
   "gitHead": "199a23f801100659c2b75128678f4892b486ad2a",
   "publishConfig": {
     "access": "public"
+  },
+  "devDependencies": {
+    "@types/rss": "0.0.28"
   }
 }
