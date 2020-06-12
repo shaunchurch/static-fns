@@ -6,7 +6,7 @@ const getPostsDefaultOptions = {
   directory: path.join(process.cwd(), `/packages/blog/__tests__/test-posts`),
 };
 
-describe("blog", () => {
+describe("blog-fns", () => {
   it("needs tests", () => {
     expect(2 + 2).toBe(4);
   });
@@ -36,14 +36,13 @@ describe("blog", () => {
   // });
 });
 
-describe("filesystem", () => {
+describe("filesystem-fns", () => {
   it("should find a valid directory in an array of paths", () => {
     const dirs = [
       "/path/to/nowhere",
       "/beaten/path",
       getPostsDefaultOptions.directory,
     ];
-
     const directory = findValidDirectory(dirs);
     const posts = getPosts(getPostsDefaultOptions);
     expect(directory).toBe(getPostsDefaultOptions.directory);
