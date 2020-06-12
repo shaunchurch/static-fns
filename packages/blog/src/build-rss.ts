@@ -20,7 +20,7 @@ export function generateRSS(options: RSSOptions) {
     site_url: options.rootUrl,
     feed_url: `${options.rootUrl}/${options.rssFilename || DEFAULT_FILENAME}`,
     description: options.description || "",
-    generate: "fns",
+    generator: "fns",
   });
 
   previewItems.map((post: any) => {
@@ -36,8 +36,14 @@ export function generateRSS(options: RSSOptions) {
   });
 
   const rss = feed.xml({ indent: true });
-  fs.writeFileSync(
-    path.join(options.outputPath, options.rssFilename || DEFAULT_FILENAME),
-    rss
-  );
+  try {
+    fs.writeFileSync(
+      path.join(options.outputPath, options.rssFilename || DEFAULT_FILENAME),
+      rss
+    );
+    return true;
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
 }
