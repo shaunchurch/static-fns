@@ -29,6 +29,7 @@
     "access": "public"
   },
   "dependencies": {
-    "gray-matter": "^4.0.2"
+    "gray-matter": "^4.0.2",
+    "stringify-object": "^3.3.0"
   }
 }
