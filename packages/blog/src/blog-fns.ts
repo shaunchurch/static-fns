@@ -114,13 +114,14 @@ type GetOptions = {
   verbose?: boolean;
 };
 
-export function getPosts(options?: GetOptions) {
+export function getPosts(options: GetOptions = {}) {
   const {
     directory = findDefaultPostsDirectory(),
     cache: useCache = false,
     limit = undefined,
     verbose = false,
   } = options;
+
   const TAG = "[ posts ]";
 
   if (useCache && cache.posts.length > 0) {

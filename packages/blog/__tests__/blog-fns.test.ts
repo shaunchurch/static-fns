@@ -34,6 +34,12 @@ describe("blog-fns", () => {
     expect(posts[0].title).toBe("First post");
   });
 
+  it("should read a set of posts from the filesystem in a default location without any additional options", () => {
+    const posts = getPosts();
+    expect(posts).toHaveLength(4);
+    expect(posts[0].title).toBe("First post");
+  });
+
   it("should read a set of posts from the filesystem and derive a tag object", () => {
     const tags = getTags();
     expect(Object.keys(tags)[0]).toEqual("tag-one");
