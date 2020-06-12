@@ -1,5 +1,10 @@
 import path from "path";
-import { getPosts, findValidDirectory } from "../src/blog-fns";
+import {
+  getPosts,
+  getTags,
+  getAuthors,
+  findValidDirectory,
+} from "../src/blog-fns";
 
 const getPostsDefaultOptions = {
   cache: false,
@@ -29,11 +34,21 @@ describe("blog-fns", () => {
     expect(posts[0].title).toBe("First post");
   });
 
-  // it("should read a set of posts from the filesystem without a specified directory", () => {
-  //   const posts = getPosts({ cache: false, limit: 2 });
-  //   expect(posts).toHaveLength(2);
-  //   expect(posts[0].title).toBe("First post");
-  // });
+  it("should read a set of posts from the filesystem and derive a tag object", () => {
+    const tags = getTags();
+    expect(Object.keys(tags)[0]).toEqual("tag-one");
+    expect(Object.keys(tags)[1]).toEqual("tag-two");
+    expect(tags[Object.keys(tags)[0]]).toHaveLength(1);
+    expect(tags[Object.keys(tags)[2]]).toHaveLength(2);
+  });
+
+  it("should read a set of posts from the filesystem and derive a tag object", () => {
+    const authors = getAuthors();
+    expect(Object.keys(authors)[0]).toEqual("author-one");
+    expect(Object.keys(authors)[1]).toEqual("author-two");
+    expect(authors[Object.keys(authors)[0]]).toHaveLength(1);
+    expect(authors[Object.keys(authors)[2]]).toHaveLength(1);
+  });
 });
 
 describe("filesystem-fns", () => {
