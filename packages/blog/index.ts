@@ -1,8 +1,10 @@
 export {
   getPosts,
   getTags,
+  // getTagBySlug,
   getStaticTagPaths,
   getAuthors,
+  // getAuthorBySlug,
   getStaticAuthorPaths,
   PostData,
 } from "./src/blog-fns";

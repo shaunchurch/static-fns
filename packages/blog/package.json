@@ -36,5 +36,6 @@
   },
   "devDependencies": {
     "@types/rss": "0.0.28"
-  }
+  },
+  "sideEffects": false
 }
