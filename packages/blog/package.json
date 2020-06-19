@@ -19,7 +19,8 @@
   },
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
-    "tsc": "tsc"
+    "notsc": "tsc",
+    "tsc": "rollup --config ./rollup.config.js"
   },
   "bugs": {
     "url": "https://github.com/shaunchurch/static-fns/issues"
@@ -35,7 +36,13 @@
     "access": "public"
   },
   "devDependencies": {
-    "@types/rss": "0.0.28"
+    "@types/rss": "0.0.28",
+    "rollup": "^2.17.1",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-typescript2": "^0.27.1",
+    "typescript": "^3.9.5"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "module": "lib/index.es.js"
 }
