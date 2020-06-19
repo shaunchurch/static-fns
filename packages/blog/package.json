@@ -1,6 +1,6 @@
 {
   "name": "@static-fns/blog",
-  "version": "0.0.1-alpha.36",
+  "version": "0.0.1-alpha.37",
   "description": "> TODO: description",
   "author": "Shaun Church <shaun@shaunchurch.com>",
   "homepage": "https://github.com/shaunchurch/static-fns#readme",
@@ -26,7 +26,7 @@
     "url": "https://github.com/shaunchurch/static-fns/issues"
   },
   "dependencies": {
-    "@static-fns/loader": "^0.0.1-alpha.35",
+    "@static-fns/loader": "^0.0.1-alpha.37",
     "date-fns": "^2.14.0",
     "isomorphic-unfetch": "^3.0.0",
     "rss": "^1.2.2"
@@ -38,7 +38,6 @@
   "devDependencies": {
     "@types/rss": "0.0.28",
     "rollup": "^2.17.1",
-    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-typescript2": "^0.27.1",
     "typescript": "^3.9.5"
