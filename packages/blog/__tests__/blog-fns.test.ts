@@ -2,7 +2,9 @@ import path from "path";
 import {
   getPosts,
   getTags,
+  getTagPostsBySlug,
   getAuthors,
+  getAuthorPostsBySlug,
   findValidDirectory,
   getStaticTagPaths,
   getStaticAuthorPaths,
@@ -50,6 +52,12 @@ describe("blog-fns", () => {
     expect(tags[Object.keys(tags)[2]]).toHaveLength(2);
   });
 
+  it("should return a list of posts for a single tag slug", () => {
+    const tagPosts = getTagPostsBySlug("tag-one");
+    expect(tagPosts).toHaveLength(1);
+    expect(tagPosts[0].title).toEqual("Two post");
+  });
+
   it("should return a list of Next.js StaticPath objects for tags", () => {
     const paths = getStaticTagPaths();
     expect(paths).toBeInstanceOf(Array);
@@ -64,6 +72,13 @@ describe("blog-fns", () => {
     expect(Object.keys(authors)[1]).toEqual("author-two");
     expect(authors[Object.keys(authors)[0]]).toHaveLength(1);
     expect(authors[Object.keys(authors)[2]]).toHaveLength(1);
+  });
+
+  it("should return a list of posts for a single author slug", () => {
+    const authorPosts = getAuthorPostsBySlug("testy-mctestface");
+    expect(authorPosts).toHaveLength(1);
+    expect(authorPosts[0].title).toEqual("Three post");
+    expect(authorPosts[0].author[0]).toEqual("Testy McTestface");
   });
 
   it("should return a list of Next.js StaticPath objects for author", () => {

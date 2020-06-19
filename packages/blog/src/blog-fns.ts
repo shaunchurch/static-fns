@@ -171,6 +171,10 @@ export function getTags(): TagPosts {
   }, {});
 }
 
+export function getTagPostsBySlug(slug: string) {
+  return getTags()[slug];
+}
+
 type GetStaticTagPaths = {
   params: {
     tagSlug: string;
@@ -204,6 +208,10 @@ export function getAuthors(): TagAuthors {
 
     return acc;
   }, {});
+}
+
+export function getAuthorPostsBySlug(slug: string) {
+  return getAuthors()[slug];
 }
 
 type GetStaticAuthorPaths = {
