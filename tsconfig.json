@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "module": "ES6",
+    "module": "UMD",
     "declaration": true,
     "noImplicitAny": false,
     "removeComments": true,
