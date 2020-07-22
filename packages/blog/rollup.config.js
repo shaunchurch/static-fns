@@ -20,6 +20,7 @@ export default {
       include: [
         "node_modules/@static-fns/**",
         "node_modules/rss/**",
+        "node_modules/xml/**",
         "node_modules/isomorphic-unfetch/**",
       ],
     }),
