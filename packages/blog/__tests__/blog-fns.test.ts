@@ -48,14 +48,14 @@ describe("blog-fns", () => {
     const tags = getTags();
     expect(Object.keys(tags)[0]).toEqual("tag-one");
     expect(Object.keys(tags)[1]).toEqual("tag-two");
-    expect(tags[Object.keys(tags)[0]]).toHaveLength(1);
+    expect(tags[Object.keys(tags)[0]]).toHaveLength(2);
     expect(tags[Object.keys(tags)[2]]).toHaveLength(2);
   });
 
   it("should return a list of posts for a single tag slug", () => {
     const tagPosts = getTagPostsBySlug("tag-one");
-    expect(tagPosts).toHaveLength(1);
-    expect(tagPosts[0].title).toEqual("Two post");
+    expect(tagPosts).toHaveLength(2);
+    expect(tagPosts[0].title).toEqual("First post");
   });
 
   it("should return a list of Next.js StaticPath objects for tags", () => {
