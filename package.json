@@ -23,6 +23,7 @@
     "babel-jest": "^26.0.1",
     "jest": "^26.0.1",
     "lerna": "^3.22.1",
+    "rollup-plugin-commonjs": "^10.1.0",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
   },
