@@ -6,6 +6,8 @@
   "homepage": "https://github.com/shaunchurch/static-fns#readme",
   "license": "ISC",
   "main": "lib/index.js",
+  "module": "lib/index.es.js",
+  "browser": "lib/index.umd.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -42,6 +44,5 @@
     "rollup-plugin-typescript2": "^0.27.1",
     "typescript": "^3.9.5"
   },
-  "sideEffects": false,
-  "module": "lib/index.es.js"
+  "sideEffects": false
 }
