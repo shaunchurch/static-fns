@@ -6,11 +6,24 @@ export default {
   input: "index.ts",
 
   output: [
-    { file: "dist/bundle.cjs.js", format: "cjs" },
-    { file: "dist/bundle.es.js", format: "es" },
-    { file: "dist/bundle.umd.js", format: "umd", name: "static-fns" },
+    // {
+    //   // file: "dist/bundle.cjs.js",
+    //   dir: "./dist",
+    //   format: "cjs",
+    // },
+    {
+      // file: "dist/bundle.es.js",
+      dir: "./dist",
+      format: "es",
+    },
+    // {
+    //   file: "dist/bundle.umd.js",
+    //   dir: "./dist",
+    //   format: "umd",
+    //   name: "static-fns",
+    // },
   ],
 
   // plugins: [nodeResolve(), commonjs(), typescript()],
-  plugins: [typescript()],
+  plugins: [typescript({ declarationDir: "./dist" })],
 };
