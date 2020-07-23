@@ -7,7 +7,6 @@ export function slugify(string: string) {
 
   return string
     .toString()
-    .toLowerCase()
     .replace(/\s+/g, "-") // Replace spaces with -
     .replace(p, (c) => b.charAt(a.indexOf(c))) // Replace special characters
     .replace(/&/g, "-and-") // Replace & with 'and'

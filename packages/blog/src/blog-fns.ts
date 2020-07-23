@@ -157,7 +157,7 @@ export function getTags(): TagPosts {
     }
 
     current.tags.forEach((tag) => {
-      const tagSlug = slugify(tag);
+      const tagSlug = tag;
       if (!acc.hasOwnProperty(tagSlug)) {
         // @ts-ignore
         acc[tagSlug] = [];
