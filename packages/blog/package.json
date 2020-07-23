@@ -8,7 +8,7 @@
   "main": "./dist/bundle.cjs.js",
   "module": "./dist/bundle.es.js",
   "directories": {
-    "lib": "lib",
+    "lib": "dist",
     "test": "__tests__"
   },
   "files": [
