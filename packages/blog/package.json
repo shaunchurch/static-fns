@@ -5,8 +5,7 @@
   "author": "Shaun Church <shaun@shaunchurch.com>",
   "homepage": "https://github.com/shaunchurch/static-fns#readme",
   "license": "ISC",
-  "main": "./dist/bundle.cjs.js",
-  "module": "./dist/bundle.es.js",
+  "module": "./dist/index.js",
   "directories": {
     "lib": "dist",
     "test": "__tests__"
