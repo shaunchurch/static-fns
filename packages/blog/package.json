@@ -32,7 +32,7 @@
     "isomorphic-unfetch": "^3.0.0",
     "rss": "^1.2.2"
   },
-  "gitHead": "01cc5921e22743c7a89545af37eb108f87787ef5",
+  "gitHead": "b674204e43d1c7000bdf2e69417af9d74f132de6",
   "publishConfig": {
     "access": "public"
   },
