@@ -1,29 +1,16 @@
-import typescript from "rollup-plugin-typescript2";
-import commonjs from "rollup-plugin-commonjs";
-import nodeResolve from "rollup-plugin-node-resolve";
+import typescript from "@rollup/plugin-typescript";
+import commonjs from "@rollup/plugin-commonjs";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default {
   input: "index.ts",
+
   output: [
-    {
-      file: "lib/index.js",
-      format: "cjs",
-    },
-    {
-      file: "lib/index.es.js",
-      format: "esm",
-    },
+    { file: "dist/bundle.cjs.js", format: "cjs" },
+    { file: "dist/bundle.es.js", format: "es" },
+    { file: "dist/bundle.umd.js", format: "umd", name: "static-fns" },
   ],
-  plugins: [
-    nodeResolve(),
-    commonjs({
-      include: [
-        "node_modules/@static-fns/**",
-        "node_modules/rss/**",
-        "node_modules/xml/**",
-        "node_modules/isomorphic-unfetch/**",
-      ],
-    }),
-    typescript(),
-  ],
+
+  // plugins: [nodeResolve(), commonjs(), typescript()],
+  plugins: [typescript()],
 };

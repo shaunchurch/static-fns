@@ -5,7 +5,7 @@
   "author": "Shaun Church <shaun@shaunchurch.com>",
   "homepage": "https://github.com/shaunchurch/static-fns#readme",
   "license": "ISC",
-  "main": "lib/index.js",
+  "main": "lib/index.cjs.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"

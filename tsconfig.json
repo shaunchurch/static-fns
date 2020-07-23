@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": "./src",
     "module": "ES2015",
-    "declaration": true,
-    "declarationDir": "./lib",
+    // "declaration": true,
+    // "declarationDir": "./lib",
     "noImplicitAny": false,
     "removeComments": true,
     "noLib": false,
