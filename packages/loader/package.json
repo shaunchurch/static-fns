@@ -1,6 +1,6 @@
 {
   "name": "@static-fns/loader",
-  "version": "0.0.1-alpha.39",
+  "version": "0.0.1-alpha.44",
   "description": "> TODO: description",
   "author": "Shaun Church <shaun@shaunchurch.com>",
   "homepage": "https://github.com/shaunchurch/static-fns#readme",
@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/shaunchurch/static-fns/issues"
   },
-  "gitHead": "199a23f801100659c2b75128678f4892b486ad2a",
+  "gitHead": "b674204e43d1c7000bdf2e69417af9d74f132de6",
   "publishConfig": {
     "access": "public"
   },

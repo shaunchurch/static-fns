@@ -68,14 +68,14 @@ describe("blog-fns", () => {
 
   it("should read a set of posts from the filesystem and derive a tag object", () => {
     const authors = getAuthors();
-    expect(Object.keys(authors)[0]).toEqual("author-one");
-    expect(Object.keys(authors)[1]).toEqual("author-two");
+    expect(Object.keys(authors)[0]).toEqual("Author-One");
+    expect(Object.keys(authors)[1]).toEqual("Author-Two");
     expect(authors[Object.keys(authors)[0]]).toHaveLength(1);
     expect(authors[Object.keys(authors)[2]]).toHaveLength(1);
   });
 
   it("should return a list of posts for a single author slug", () => {
-    const authorPosts = getAuthorPostsBySlug("testy-mctestface");
+    const authorPosts = getAuthorPostsBySlug("Testy-McTestface");
     expect(authorPosts).toHaveLength(1);
     expect(authorPosts[0].title).toEqual("Three post");
     expect(authorPosts[0].author[0]).toEqual("Testy McTestface");
@@ -85,8 +85,8 @@ describe("blog-fns", () => {
     const paths = getStaticAuthorPaths();
     expect(paths).toBeInstanceOf(Array);
     expect(paths).toHaveLength(3);
-    expect(paths[0].params.authorSlug).toEqual("author-one");
-    expect(paths[1].params.authorSlug).toEqual("author-two");
+    expect(paths[0].params.authorSlug).toEqual("Author-One");
+    expect(paths[1].params.authorSlug).toEqual("Author-Two");
   });
 });
 

@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import parseFrontMatter from "@static-fns/loader/parseFrontMatter";
+import parseFrontMatter from "./parseFrontMatter";
 import { slugify } from "./slugify";
 
 type Cache = {

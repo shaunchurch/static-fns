@@ -19,5 +19,5 @@ function parseFrontMatter(file) {
   };
 }
 
-module.exports = parseFrontMatter;
-// export default parseFrontMatter;
+// module.exports = parseFrontMatter;
+export default parseFrontMatter;

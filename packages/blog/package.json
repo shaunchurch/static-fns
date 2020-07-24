@@ -1,17 +1,18 @@
 {
   "name": "@static-fns/blog",
-  "version": "0.0.1-alpha.40",
+  "version": "0.0.1-alpha.52",
   "description": "> TODO: description",
   "author": "Shaun Church <shaun@shaunchurch.com>",
   "homepage": "https://github.com/shaunchurch/static-fns#readme",
   "license": "ISC",
-  "main": "lib/index.js",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/es/index.js",
   "directories": {
-    "lib": "lib",
+    "lib": "dist",
     "test": "__tests__"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "repository": {
     "type": "git",
@@ -26,12 +27,12 @@
     "url": "https://github.com/shaunchurch/static-fns/issues"
   },
   "dependencies": {
-    "@static-fns/loader": "^0.0.1-alpha.39",
+    "@static-fns/loader": "^0.0.1-alpha.44",
     "date-fns": "^2.14.0",
     "isomorphic-unfetch": "^3.0.0",
     "rss": "^1.2.2"
   },
-  "gitHead": "199a23f801100659c2b75128678f4892b486ad2a",
+  "gitHead": "b674204e43d1c7000bdf2e69417af9d74f132de6",
   "publishConfig": {
     "access": "public"
   },
@@ -42,6 +43,5 @@
     "rollup-plugin-typescript2": "^0.27.1",
     "typescript": "^3.9.5"
   },
-  "sideEffects": false,
-  "module": "lib/index.es.js"
+  "sideEffects": false
 }
