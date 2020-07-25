@@ -7,6 +7,7 @@ export default [
     input: "index.ts",
     output: [
       {
+        name: "static-fns",
         dir: "./dist/umd",
         format: "umd",
       },
