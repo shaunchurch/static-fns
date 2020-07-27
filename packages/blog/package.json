@@ -21,7 +21,7 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
     "notsc": "tsc",
-    "tsc": "rollup --config ./rollup.config.js"
+    "package": "rollup --config ./rollup.config.js"
   },
   "bugs": {
     "url": "https://github.com/shaunchurch/static-fns/issues"
