@@ -151,7 +151,7 @@ type TagPosts = {
   [key: string]: PostData[];
 };
 export function getTags(): TagPosts {
-  return getPosts({ cache: true }).reduce((acc, current) => {
+  return getPosts({ cache: false }).reduce((acc, current) => {
     if (!current.tags) {
       return acc;
     }
@@ -190,7 +190,7 @@ type TagAuthors = {
   [key: string]: PostData[];
 };
 export function getAuthors(): TagAuthors {
-  return getPosts({ cache: true }).reduce((acc, current) => {
+  return getPosts({ cache: false }).reduce((acc, current) => {
     if (!current.author) {
       return acc;
     }
