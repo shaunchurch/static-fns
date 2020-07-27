@@ -14,6 +14,7 @@ export default [
     ],
     plugins: [
       typescript({ declarationDir: "./dist/umd", outDir: "./dist/umd" }),
+      commonjs({ include: /node_modules/ }),
     ],
   },
   {
@@ -25,7 +26,10 @@ export default [
       },
     ],
     // plugins: [nodeResolve(), commonjs(), typescript()],
-    plugins: [typescript({ declarationDir: "./dist/es", outDir: "./dist/es" })],
+    plugins: [
+      typescript({ declarationDir: "./dist/es", outDir: "./dist/es" }),
+      commonjs({ include: /node_modules/ }),
+    ],
   },
   {
     input: "index.ts",
@@ -39,6 +43,7 @@ export default [
     // plugins: [nodeResolve(), commonjs(), typescript()],
     plugins: [
       typescript({ declarationDir: "./dist/cjs", outDir: "./dist/cjs" }),
+      commonjs({ include: /node_modules/ }),
     ],
   },
 ];
