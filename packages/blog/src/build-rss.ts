@@ -28,7 +28,7 @@ export function generateRSS(options: RSSOptions) {
       title: post.title || "",
       url: options.rootUrl + post.path,
       date: post.date,
-      description: post.excerpt || post.body || "",
+      description: post.body || post.excerpt,
       // custom_elements: [].concat(
       //   post.author.map((author) => ({ author: [{ name: author.name }] }))
       // ),
