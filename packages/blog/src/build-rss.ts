@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import RSS from "rss";
+import showdown from "showdown";
 import { getPosts } from "./blog-fns";
 
 type RSSOptions = {
@@ -14,6 +15,8 @@ type RSSOptions = {
 const DEFAULT_FILENAME = "rss.xml";
 
 export function generateRSS(options: RSSOptions) {
+  const converter = new showdown.Converter();
+
   const previewItems = getPosts({ cache: true });
   const feed = new RSS({
     title: options.siteName || "RSS Feed",
@@ -28,7 +31,7 @@ export function generateRSS(options: RSSOptions) {
       title: post.title || "",
       url: options.rootUrl + post.path,
       date: post.date,
-      description: post.body || post.excerpt,
+      description: converter.makeHtml(post.body) || post.excerpt,
       // custom_elements: [].concat(
       //   post.author.map((author) => ({ author: [{ name: author.name }] }))
       // ),

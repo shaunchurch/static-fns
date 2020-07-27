@@ -30,5 +30,8 @@
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.5"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "dependencies": {
+    "showdown": "^1.9.1"
+  }
 }
