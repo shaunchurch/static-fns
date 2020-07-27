@@ -1,6 +1,6 @@
 {
   "name": "@static-fns/loader",
-  "version": "0.0.1-alpha.44",
+  "version": "0.0.1-alpha.55",
   "description": "> TODO: description",
   "author": "Shaun Church <shaun@shaunchurch.com>",
   "homepage": "https://github.com/shaunchurch/static-fns#readme",
@@ -24,12 +24,13 @@
   "bugs": {
     "url": "https://github.com/shaunchurch/static-fns/issues"
   },
-  "gitHead": "b674204e43d1c7000bdf2e69417af9d74f132de6",
+  "gitHead": "091092ea063217f5f48e2c92b2809b878b58434e",
   "publishConfig": {
     "access": "public"
   },
   "dependencies": {
     "gray-matter": "^4.0.2",
     "stringify-object": "^3.3.0"
-  }
+  },
+  "sideEffects": false
 }

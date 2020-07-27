@@ -7,6 +7,19 @@ export default [
     input: "index.ts",
     output: [
       {
+        name: "static-fns",
+        dir: "./dist/umd",
+        format: "umd",
+      },
+    ],
+    plugins: [
+      typescript({ declarationDir: "./dist/umd", outDir: "./dist/umd" }),
+    ],
+  },
+  {
+    input: "index.ts",
+    output: [
+      {
         dir: "./dist/es",
         format: "es",
       },
