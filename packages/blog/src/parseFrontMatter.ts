@@ -4,7 +4,7 @@ const matter = require("gray-matter");
 const EXCERPT_LENGTH = 280;
 
 function parseFrontMatter(file) {
-  const { content, data } = matter(file);
+  const { content, data, excerpt } = matter(file, { excerpt: true });
 
   // TODO: validate date for frontmatter and give a nice error message
 
@@ -16,10 +16,21 @@ function parseFrontMatter(file) {
     data.author = data.author.split(",").map((author) => author.trim());
   }
 
-  if (data.excerpt == undefined) {
-    let cleanContent = content.replace(/\n/g, "")
+  if (excerpt) {
+    data.excerpt = excerpt;
+  } else {
+    let cleanContent = content
+      .replace(/!\[.+\]\[.+\]/g, "")
+      .replace(/[>[*_\]\n](\(.+\))*/g, "");
+    let firstHeadline = cleanContent.indexOf("#");
 
-    data.excerpt = cleanContent.substr(0, Math.min(EXCERPT_LENGTH, cleanContent.indexOf("#")));
+    if (firstHeadline === -1 || firstHeadline > EXCERPT_LENGTH) {
+      data.excerpt = cleanContent.substr(0, EXCERPT_LENGTH);
+    } else if (firstHeadline === 0) {
+      data.excerpt = cleanContent.substr(0, EXCERPT_LENGTH).replace(/#/g, "");
+    } else {
+      data.excerpt = cleanContent.substr(0, firstHeadline);
+    }
   }
 
   return {

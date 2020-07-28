@@ -22,7 +22,7 @@ describe("blog-fns", () => {
 
   it("should read a set of posts from the filesystem and return an array", () => {
     const posts = getPosts(getPostsDefaultOptions);
-    expect(posts).toHaveLength(4);
+    expect(posts).toHaveLength(5);
     expect(posts[0].title).toBe("First post");
   });
 
@@ -40,7 +40,7 @@ describe("blog-fns", () => {
 
   it("should read a set of posts from the filesystem in a default location without any additional options", () => {
     const posts = getPosts();
-    expect(posts).toHaveLength(4);
+    expect(posts).toHaveLength(5);
     expect(posts[0].title).toBe("First post");
   });
 
@@ -61,7 +61,7 @@ describe("blog-fns", () => {
   it("should return a list of Next.js StaticPath objects for tags", () => {
     const paths = getStaticTagPaths();
     expect(paths).toBeInstanceOf(Array);
-    expect(paths).toHaveLength(6);
+    expect(paths).toHaveLength(7);
     expect(paths[0].params.tagSlug).toEqual("tag-one");
     expect(paths[1].params.tagSlug).toEqual("tag-two");
   });
@@ -99,7 +99,7 @@ describe("blog-fns", () => {
     const posts = getPosts();
 
     expect(posts[1].excerpt).not.toBe("Hello welcome to the two test post");
-    expect(posts[1].excerpt).toBe("A Custom Post Excerpt");
+    expect(posts[1].excerpt).toBe("A Custom Post Excerpt\n");
   });
 });
 
