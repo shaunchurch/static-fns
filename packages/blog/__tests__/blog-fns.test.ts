@@ -95,7 +95,7 @@ describe("blog-fns", () => {
     expect(posts[0].excerpt).toBe("Hello welcome to the first test post");
   });
 
-  it("should provide respect an existing excerpt for a post", () => {
+  it("should respect an existing excerpt for a post", () => {
     const posts = getPosts();
 
     expect(posts[1].excerpt).not.toBe("Hello welcome to the two test post");
