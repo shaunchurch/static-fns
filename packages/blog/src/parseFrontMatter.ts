@@ -17,7 +17,7 @@ function parseFrontMatter(file) {
   }
 
   if (excerpt) {
-    data.excerpt = excerpt;
+    data.excerpt = excerpt.replace(/\n/g, "");
   } else {
     let cleanContent = content
       .replace(/!\[.+\]\[.+\]/g, "") // Remove Image Tags
@@ -31,6 +31,8 @@ function parseFrontMatter(file) {
     } else {
       data.excerpt = cleanContent.substr(0, firstHeadline);
     }
+
+    data.excerpt += "...";
   }
 
   return {
