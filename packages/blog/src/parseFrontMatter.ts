@@ -20,8 +20,8 @@ function parseFrontMatter(file) {
     data.excerpt = excerpt;
   } else {
     let cleanContent = content
-      .replace(/!\[.+\]\[.+\]/g, "")
-      .replace(/[>[*_\]\n](\(.+\))*/g, "");
+      .replace(/!\[.+\]\[.+\]/g, "") // Remove Image Tags
+      .replace(/[>[*_\]\n](\(.+\))*/g, ""); // Remove misc syntax (inc. Link Hrefs but not link text)
     let firstHeadline = cleanContent.indexOf("#");
 
     if (firstHeadline === -1 || firstHeadline > EXCERPT_LENGTH) {
