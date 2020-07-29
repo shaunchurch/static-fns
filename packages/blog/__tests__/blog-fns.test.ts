@@ -99,6 +99,13 @@ describe("blog-fns", () => {
     expect(posts[0].excerpt).toBe("Hello welcome to the first test post");
   });
 
+  it("should provide an automatic excerpt for a post and remove markdown syntax", () => {
+    const posts = getPosts();
+
+    expect(getPostByKey(posts, "title", "A Complicated Post").excerpt)
+      .toBe("A really early link Strong Bold Text followed by Italics A quotation")
+  });
+
   it("should respect an existing excerpt for a post", () => {
     const posts = getPosts();
 
