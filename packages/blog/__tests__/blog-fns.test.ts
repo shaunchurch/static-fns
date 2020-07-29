@@ -15,6 +15,10 @@ const getPostsDefaultOptions = {
   directory: path.join(process.cwd(), `/packages/blog/__tests__/test-posts`),
 };
 
+const getPostByKey = (posts, key, title) => {
+  return posts.find(p => p[key] === title);
+}
+
 describe("blog-fns", () => {
   it("needs tests", () => {
     expect(2 + 2).toBe(4);
