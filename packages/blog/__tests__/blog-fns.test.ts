@@ -15,6 +15,10 @@ const getPostsDefaultOptions = {
   directory: path.join(process.cwd(), `/packages/blog/__tests__/test-posts`),
 };
 
+const getPostByKey = (posts, key, title) => {
+  return posts.find(p => p[key] === title);
+}
+
 describe("blog-fns", () => {
   it("needs tests", () => {
     expect(2 + 2).toBe(4);
@@ -22,7 +26,7 @@ describe("blog-fns", () => {
 
   it("should read a set of posts from the filesystem and return an array", () => {
     const posts = getPosts(getPostsDefaultOptions);
-    expect(posts).toHaveLength(4);
+    expect(posts).toHaveLength(5);
     expect(posts[0].title).toBe("First post");
   });
 
@@ -40,7 +44,7 @@ describe("blog-fns", () => {
 
   it("should read a set of posts from the filesystem in a default location without any additional options", () => {
     const posts = getPosts();
-    expect(posts).toHaveLength(4);
+    expect(posts).toHaveLength(5);
     expect(posts[0].title).toBe("First post");
   });
 
@@ -61,7 +65,7 @@ describe("blog-fns", () => {
   it("should return a list of Next.js StaticPath objects for tags", () => {
     const paths = getStaticTagPaths();
     expect(paths).toBeInstanceOf(Array);
-    expect(paths).toHaveLength(6);
+    expect(paths).toHaveLength(7);
     expect(paths[0].params.tagSlug).toEqual("tag-one");
     expect(paths[1].params.tagSlug).toEqual("tag-two");
   });
@@ -87,6 +91,26 @@ describe("blog-fns", () => {
     expect(paths).toHaveLength(3);
     expect(paths[0].params.authorSlug).toEqual("Author-One");
     expect(paths[1].params.authorSlug).toEqual("Author-Two");
+  });
+
+  it("should provide an automatic excerpt for a post", () => {
+    const posts = getPosts();
+
+    expect(posts[0].excerpt).toBe("Hello welcome to the first test post...");
+  });
+
+  it("should provide an automatic excerpt for a post and remove markdown syntax", () => {
+    const posts = getPosts();
+
+    expect(getPostByKey(posts, "title", "A Complicated Post").excerpt)
+      .toBe("A really early link Strong Bold Text followed by Italics A quotation...")
+  });
+
+  it("should respect an existing excerpt for a post", () => {
+    const posts = getPosts();
+
+    expect(posts[1].excerpt).not.toBe("Hello welcome to the two test post");
+    expect(posts[1].excerpt).toBe("A Custom Post Excerpt");
   });
 });
 
