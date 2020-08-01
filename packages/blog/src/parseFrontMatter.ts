@@ -1,4 +1,5 @@
 const matter = require("gray-matter");
+const cleanse = require('remove-markdown');
 
 // TODO: Allow excerpt length to be configurable
 const EXCERPT_LENGTH = 280;
@@ -19,19 +20,7 @@ function parseFrontMatter(file) {
   if (excerpt) {
     data.excerpt = excerpt.replace(/\n/g, "");
   } else {
-    let cleanContent = content
-      .replace(/!\[.+\]\[.+\]/g, "") // Remove Image Tags
-      .replace(/[>[*_\]\n](\(.+\))*/g, ""); // Remove misc syntax (inc. Link Hrefs but not link text)
-    let firstHeadline = cleanContent.indexOf("#");
-
-    if (firstHeadline === -1 || firstHeadline > EXCERPT_LENGTH) {
-      data.excerpt = cleanContent.substr(0, EXCERPT_LENGTH);
-    } else if (firstHeadline === 0) {
-      data.excerpt = cleanContent.substr(0, EXCERPT_LENGTH).replace(/#/g, "");
-    } else {
-      data.excerpt = cleanContent.substr(0, firstHeadline);
-    }
-
+    data.excerpt = cleanse(content).substr(0, EXCERPT_LENGTH)
     data.excerpt += "...";
   }
 

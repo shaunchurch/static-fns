@@ -30,6 +30,7 @@
     "@static-fns/loader": "^0.0.1-alpha.56",
     "date-fns": "^2.14.0",
     "isomorphic-unfetch": "^3.0.0",
+    "remove-markdown": "^0.3.0",
     "rss": "^1.2.2"
   },
   "gitHead": "091092ea063217f5f48e2c92b2809b878b58434e",
