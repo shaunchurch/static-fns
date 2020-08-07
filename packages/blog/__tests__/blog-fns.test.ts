@@ -15,6 +15,26 @@ const getPostsDefaultOptions = {
   directory: path.join(process.cwd(), `/packages/blog/__tests__/test-posts`),
 };
 
+const getCustomPostsDefaultOptions = {
+  cache: false,
+  directory: path.join(process.cwd(), `/packages/blog/__tests__/test-custom-posts`),
+};
+
+type PostData = {
+  title?: string;
+  body: string;
+  path: string;
+  date: string;
+  tags?: string[];
+  author?: string[];
+  excerpt?: string;
+  draft?: boolean;
+}
+
+type CustomPostData = PostData & {
+  custom: string;
+}
+
 const getPostByKey = (posts, key, title) => {
   return posts.find(p => p[key] === title);
 }
@@ -25,27 +45,34 @@ describe("blog-fns", () => {
   });
 
   it("should read a set of posts from the filesystem and return an array", () => {
-    const posts = getPosts(getPostsDefaultOptions);
+    const posts = getPosts<PostData>(getPostsDefaultOptions);
     expect(posts).toHaveLength(5);
     expect(posts[0].title).toBe("First post");
   });
 
   it("should read a set of posts from the filesystem and return a limited subset", () => {
-    const posts = getPosts({ ...getPostsDefaultOptions, limit: 2 });
+    const posts = getPosts<PostData>({ ...getPostsDefaultOptions, limit: 2 });
     expect(posts).toHaveLength(2);
     expect(posts[0].title).toBe("First post");
   });
 
   it("should read a set of posts from the filesystem in a default location", () => {
-    const posts = getPosts({ limit: 2 });
+    const posts = getPosts<PostData>({ limit: 2 });
     expect(posts).toHaveLength(2);
     expect(posts[0].title).toBe("First post");
   });
 
   it("should read a set of posts from the filesystem in a default location without any additional options", () => {
-    const posts = getPosts();
+    const posts = getPosts<PostData>();
     expect(posts).toHaveLength(5);
     expect(posts[0].title).toBe("First post");
+  });
+
+  it("should read a set of custom posts and return the additional fields", () => {
+    const posts = getPosts<CustomPostData>(getCustomPostsDefaultOptions);
+    expect(posts).toHaveLength(1);
+    expect(posts[0].title).toBe("First custom post");
+    expect(posts[0].custom).toBe("Custom field");
   });
 
   it("should read a set of posts from the filesystem and derive a tag object", () => {
@@ -94,20 +121,20 @@ describe("blog-fns", () => {
   });
 
   it("should provide an automatic excerpt for a post", () => {
-    const posts = getPosts();
+    const posts = getPosts<PostData>();
 
     expect(posts[0].excerpt).toBe("Hello welcome to the first test post...");
   });
 
   it("should provide an automatic excerpt for a post and remove markdown syntax", () => {
-    const posts = getPosts();
+    const posts = getPosts<PostData>();
 
     expect(getPostByKey(posts, "title", "A Complicated Post").excerpt)
       .toBe("A really early link Strong Bold Text followed by Italics A quotation...")
   });
 
   it("should respect an existing excerpt for a post", () => {
-    const posts = getPosts();
+    const posts = getPosts<PostData>();
 
     expect(posts[1].excerpt).not.toBe("Hello welcome to the two test post");
     expect(posts[1].excerpt).toBe("A Custom Post Excerpt");
@@ -122,7 +149,7 @@ describe("filesystem-fns", () => {
       getPostsDefaultOptions.directory,
     ];
     const directory = findValidDirectory(dirs);
-    const posts = getPosts(getPostsDefaultOptions);
+    const posts = getPosts<PostData>(getPostsDefaultOptions);
     expect(directory).toBe(getPostsDefaultOptions.directory);
     expect(posts[0].path).toEqual("/test-posts/post");
   });
