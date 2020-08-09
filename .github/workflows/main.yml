@@ -33,6 +33,4 @@ jobs:
         echo test, and deploy your project.
         
     - run: npm install
-        
-    - name: Run Jest
-      uses: stefanoeb/jest-action@1.0.4
+    - run: npm test
