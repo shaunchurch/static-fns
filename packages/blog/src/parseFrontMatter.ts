@@ -1,5 +1,5 @@
 const matter = require("gray-matter");
-const cleanse = require('remove-markdown');
+import cleanse from "./remove-markdown";
 
 // TODO: Allow excerpt length to be configurable
 const EXCERPT_LENGTH = 280;
@@ -20,7 +20,10 @@ function parseFrontMatter(file) {
   if (excerpt) {
     data.excerpt = excerpt.replace(/\n/g, "");
   } else {
-    data.excerpt = cleanse(content).substr(0, EXCERPT_LENGTH)
+    data.excerpt = cleanse(content)
+      .replace(/\n\n/g, " ")
+      .replace(/\n/g, "")
+      .substr(0, EXCERPT_LENGTH);
     data.excerpt += "...";
   }
 
