@@ -32,7 +32,6 @@
   },
   "sideEffects": false,
   "dependencies": {
-    "gray-matter": "^4.0.2",
     "showdown": "^1.9.1"
   }
 }
