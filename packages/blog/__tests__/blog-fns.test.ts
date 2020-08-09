@@ -8,6 +8,9 @@ import {
   findValidDirectory,
   getStaticTagPaths,
   getStaticAuthorPaths,
+  getContent,
+  getTagContents,
+  PostData,
 } from "../src/blog-fns";
 
 const getPostsDefaultOptions = {
@@ -15,9 +18,14 @@ const getPostsDefaultOptions = {
   directory: path.join(process.cwd(), `/packages/blog/__tests__/test-posts`),
 };
 
+const getJobsDefaultOptions = {
+  cache: false,
+  directory: path.join(process.cwd(), `/packages/blog/__tests__/test-jobs`),
+};
+
 const getPostByKey = (posts, key, title) => {
-  return posts.find(p => p[key] === title);
-}
+  return posts.find((p) => p[key] === title);
+};
 
 describe("blog-fns", () => {
   it("needs tests", () => {
@@ -102,8 +110,9 @@ describe("blog-fns", () => {
   it("should provide an automatic excerpt for a post and remove markdown syntax", () => {
     const posts = getPosts();
 
-    expect(getPostByKey(posts, "title", "A Complicated Post").excerpt)
-      .toBe("A really early link Strong Bold Text followed by Italics A quotation...")
+    expect(getPostByKey(posts, "title", "A Complicated Post").excerpt).toBe(
+      "A really early link Strong Bold Text followed by Italics A quotation..."
+    );
   });
 
   it("should respect an existing excerpt for a post", () => {
@@ -111,6 +120,29 @@ describe("blog-fns", () => {
 
     expect(posts[1].excerpt).not.toBe("Hello welcome to the two test post");
     expect(posts[1].excerpt).toBe("A Custom Post Excerpt");
+  });
+
+  it("should support retreiving generic post content types", () => {
+    type ExtendedPostType = PostData & {
+      extendedProperty: string;
+    };
+
+    const expected = [{ title: "Job" }, { title: "job 2" }];
+    const actual = getContent<ExtendedPostType>(getJobsDefaultOptions);
+
+    expect(actual[0].title).toEqual(expected[0].title);
+  });
+
+  it("should support retreiving tags from a content folder", () => {
+    type ExtendedPostType = PostData & {
+      extendedProperty: string;
+    };
+
+    const expected = [{ title: "Job" }, { title: "job 2" }];
+    const actual = getTagContents<ExtendedPostType>(getJobsDefaultOptions);
+
+    console.log("ac", actual);
+    // expect(actual[0].title).toEqual(expected[0].title);
   });
 });
 

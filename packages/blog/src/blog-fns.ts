@@ -147,6 +147,33 @@ export function getPosts(options: GetOptions = {}) {
   return posts;
 }
 
+export function getContent<T>(options: GetOptions = {}): T[] {
+  return <any>getPosts(options);
+}
+
+export function getTagContents<T>(
+  options: GetOptions = {}
+): { [key: string]: T[] } {
+  return getPosts({ ...options, cache: false }).reduce((acc, current) => {
+    if (!current.tags) {
+      return acc;
+    }
+
+    current.tags.forEach((tag) => {
+      const tagSlug = slugify(tag);
+      if (!acc.hasOwnProperty(tagSlug)) {
+        // @ts-ignore
+        acc[tagSlug] = [];
+      }
+
+      // @ts-ignore
+      acc[tagSlug].push(current);
+    });
+
+    return acc;
+  }, {});
+}
+
 type TagPosts = {
   [key: string]: PostData[];
 };
