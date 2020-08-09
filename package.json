@@ -7,7 +7,7 @@
     "test": "jest",
     "test:watch": "jest --watchAll",
     "test:coverage": "jest --coverage",
-    "prepublish": "npm run test",
+    "prepublishOnly": "npm run test",
     "publish": "lerna run package && lerna publish"
   },
   "author": "",
