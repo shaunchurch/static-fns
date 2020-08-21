@@ -6,7 +6,6 @@ export {
   getAuthors,
   // getAuthorBySlug,
   getStaticAuthorPaths,
-  PostData,
 } from "./src/blog-fns";
 export { generateRSS } from "./src/build-rss";
 export { slugify, deSlugify } from "./src/slugify";

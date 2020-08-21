@@ -17,9 +17,9 @@ function parseFrontMatter(file) {
     data.author = data.author.split(",").map((author) => author.trim());
   }
 
-  if (excerpt) {
+  if (!data.excerpt && excerpt) {
     data.excerpt = excerpt.replace(/\n/g, "");
-  } else {
+  } else if (!data.excerpt && !excerpt) {
     data.excerpt = cleanse(content)
       .replace(/\n\n/g, " ")
       .replace(/\n/g, "")
