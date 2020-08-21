@@ -4,9 +4,9 @@ import parseFrontMatter from "./parseFrontMatter";
 import { slugify } from "./slugify";
 
 type Cache = {
-  posts: PostData[];
-  authors: any[];
-  tags: any[];
+  posts: any[];
+  authors: Tags[];
+  tags: Tags[];
 };
 
 let cache: Cache = { posts: [], authors: [], tags: [] };
@@ -53,6 +53,7 @@ function findDefaultPostsDirectory() {
 type PostPathOptions = {
   directory: string;
 };
+
 function getPostPaths(dir: string = "/", options?: PostPathOptions): string[] {
   const { directory = findDefaultPostsDirectory() } = options;
   const files = fs
@@ -70,7 +71,7 @@ function getPostPaths(dir: string = "/", options?: PostPathOptions): string[] {
   ];
 }
 
-export type PostData = {
+interface PostDataInterface {
   title?: string;
   body: string;
   path: string;
@@ -79,14 +80,17 @@ export type PostData = {
   author?: string[];
   excerpt?: string;
   draft?: boolean;
-};
+}
 
-type PostDataOptions = {
+type Options = {
   directory?: string;
+  cache?: boolean;
+  limit?: number;
+  verbose?: boolean;
 };
 
 // load file contents and front matter
-function getPostData(posts: string[], options?: PostDataOptions): PostData[] {
+function getPostData<T extends PostDataInterface>(posts: string[], options?: Options): T[] {
   const { directory } = options || {
     directory: findDefaultPostsDirectory(),
   };
@@ -107,14 +111,7 @@ function getPostData(posts: string[], options?: PostDataOptions): PostData[] {
   });
 }
 
-type GetOptions = {
-  cache?: boolean;
-  limit?: number;
-  directory?: string;
-  verbose?: boolean;
-};
-
-export function getPosts(options: GetOptions = {}) {
+export function getPosts<T extends PostDataInterface>(options: Options = {}): T[] {
   const {
     directory = findDefaultPostsDirectory(),
     cache: useCache = false,
@@ -135,22 +132,21 @@ export function getPosts(options: GetOptions = {}) {
   const postPaths = getPostPaths("/", { directory });
   verbose ? postPaths.forEach((path) => console.log(`${TAG} -`, path)) : null;
 
-  const posts = getPostData(postPaths, { directory })
-    .sort(
-      (a: PostData, b: PostData) =>
-        new Date(b.date || "").getTime() - new Date(a.date).getTime()
-    )
-    .filter((post) => !post.draft)
+  const posts = getPostData<T>(postPaths, { directory })
+    .sort((a: T, b: T) => new Date(b.date || "").getTime() - new Date(a.date).getTime())
+    .filter((post: T) => !post.draft)
     .slice(0, limit);
 
   cache.posts = posts;
+
   return posts;
 }
 
-type TagPosts = {
-  [key: string]: PostData[];
+type Tags = {
+  [key: string]: PostDataInterface[];
 };
-export function getTags(): TagPosts {
+
+export function getTags(): Tags {
   return getPosts({ cache: false }).reduce((acc, current) => {
     if (!current.tags) {
       return acc;
@@ -180,16 +176,14 @@ type GetStaticTagPaths = {
     tagSlug: string;
   };
 };
+
 export function getStaticTagPaths(): GetStaticTagPaths[] {
   return Object.keys(getTags()).map((tag) => {
     return { params: { tagSlug: tag } };
   });
 }
 
-type TagAuthors = {
-  [key: string]: PostData[];
-};
-export function getAuthors(): TagAuthors {
+export function getAuthors(): Tags {
   return getPosts({ cache: false }).reduce((acc, current) => {
     if (!current.author) {
       return acc;
@@ -219,6 +213,7 @@ type GetStaticAuthorPaths = {
     authorSlug: string;
   };
 };
+
 export function getStaticAuthorPaths(): GetStaticAuthorPaths[] {
   return Object.keys(getAuthors()).map((author) => {
     return { params: { authorSlug: author } };
