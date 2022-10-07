@@ -101,14 +101,17 @@ describe("blog-fns", () => {
     const authors = getAuthors();
     expect(Object.keys(authors)[0]).toEqual("Author-One");
     expect(Object.keys(authors)[1]).toEqual("Author-Two");
-    expect(authors[Object.keys(authors)[0]]).toHaveLength(1);
-    expect(authors[Object.keys(authors)[2]]).toHaveLength(1);
+    expect(authors[Object.keys(authors)[0]]).toHaveLength(2);
+    expect(authors[Object.keys(authors)[2]]).toHaveLength(3);
   });
 
   it("should return a list of posts for a single author slug", () => {
     const authorPosts = getAuthorPostsBySlug("Testy-McTestface");
-    expect(authorPosts).toHaveLength(1);
-    expect(authorPosts[0].title).toEqual("Three post");
+    const titles = authorPosts.map(e => e.title);
+    expect(authorPosts).toHaveLength(3);
+    expect(titles).toContain('Two post');
+    expect(titles).toContain('Three post');
+    expect(titles).toContain('Four post');
     expect(authorPosts[0].author[0]).toEqual("Testy McTestface");
   });
 
