@@ -191,7 +191,7 @@ export function getAuthors(): Tags {
 
     current.author.forEach((author) => {
       const authorSlug = slugify(author);
-      if (!acc.hasOwnProperty(author)) {
+      if (!acc.hasOwnProperty(authorSlug)) {
         // @ts-ignore
         acc[authorSlug] = [];
       }
